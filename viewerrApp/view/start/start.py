@@ -44,3 +44,5 @@ class StartView(MDScreen, Observer):
         """
         The method that will be called on the observer when the model changes.
         """
+        pass
+    
