@@ -7,11 +7,21 @@ from controller.start import StartController
 from model.patients_list import PatientsListModel
 from controller.patients_list import PatientsListController
 
-from model.series_list import SeriesListModel
-from controller.series_list import SeriesListController
+from model.study_list import StudyListModel
+from controller.study_list import StudyListController
 
 from model.search import SearchModel
 from controller.search import SearchController
+
+from model.patient import PatientModel
+from controller.patient import PatientController
+
+from model.study import StudyModel
+from controller.study import StudyController
+
+from model.series import SeriesModel
+from controller.series import SeriesController
+
 
 screens = {
     # name screen
@@ -23,12 +33,24 @@ screens = {
         "model": PatientsListModel,
         "controller": PatientsListController,
     },
-    "series_list": {
-        "model": SeriesListModel,
-        "controller": SeriesListController,
+    "study_list": {
+        "model": StudyListModel,
+        "controller": StudyListController,
     },
     "search": {
         "model": SearchModel,
         "controller": SearchController,
+    },
+    "patient": {
+        "model": PatientModel,
+        "controller": PatientController,
+    },
+    "study": {
+        "model": StudyModel,
+        "controller": StudyController,
+    },
+    "series": {
+        "model": SeriesModel,
+        "controller": SeriesController
     },
 }

@@ -10,7 +10,8 @@ You can read more about this template at the links below:
 https://github.com/HeaTTheatR/LoginAppMVC
 https://en.wikipedia.org/wiki/Model–view–controller
 """
-
+from kivy.config import Config
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
 # from kivy.config import Config
@@ -64,7 +65,7 @@ class ViewerrApp(MDApp):
             controller = screens[name_screen]["controller"](model)
             view = controller.get_view()
             view.manager_screens = self.manager_screens
-            view.name = name_screen
+            view.study_id = name_screen
             self.manager_screens.add_widget(view)
 
 

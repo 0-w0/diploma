@@ -1,0 +1,130 @@
+<SeriesView>:
+    name: "series"
+    size: root.width, root.height
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 190, 40
+
+
+        GridLayout:
+            spacing: root.width-(150 + 190)*2
+            cols: 2
+            size_hint_y: None
+            height: self.minimum_height
+
+            Button:
+                text: "Назад"
+                size_hint: (None, None)
+                size: (150, 60)
+                on_release:
+                    root.manager.transition.direction = "right"
+                    root.manager.get_screen("study").study_id = root.study_id
+                    app.root.current = "study"
+
+            Label:
+                text: "ViEwErR"
+                font_size: 25
+                color: (0, 0, 0, 1)
+                size_hint: (None, None)
+                size: (150, 60)
+
+        BoxLayout:
+            orientation: "horizontal"
+            padding: 0, 50
+
+            BoxLayout:
+                id: container_patient
+                orientation: "vertical"
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    text: "Patient: "+root.patient_id
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    height: 40
+                    text: "Sex: "+root.sex
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    height: 40
+                    text: "Birthday: "+root.birthday
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    text: "Study: "+root.study_id
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    height: 40
+                    text: "Study date: "+root.study_date
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    height: 40
+                    text: "Study description: "+root.study_description
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    text: "Series id: "+root.series_id
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+            BoxLayout:
+                orientation: "vertical"
+
+                GridLayout:
+                    cols: 2
+                    padding: 0, 40
+                    spacing: self.parent.width-450
+                    size_hint_y: None
+                    height: self.minimum_height
+
+                    Button:
+                        text: "Просмотр"
+                        size_hint: (None, None)
+                        size: (150, 60)
+
+                    Button:
+                        text: "Анализировать все"
+                        size_hint: (None, None)
+                        size: (300, 60)
+
+                ScrollView:
+                    MDList:
+                        spacing: 50
+                        id: instance_list_items

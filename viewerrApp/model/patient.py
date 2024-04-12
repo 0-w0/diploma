@@ -1,13 +1,15 @@
 import json
 
-class PatientsListModel:
+
+class PatientModel:
 
     def __init__(self):
-        self.patient_description = {}
-        path_to_patient_description = "patients.json"
-        if path_to_patient_description:
-            with open(path_to_patient_description) as json_file:
-                self.patient_description = json.loads(json_file.read())
+        self._observers = []
+        self.study_description = {}
+        path_to_study_description = "studies.json"
+        if path_to_study_description:
+            with open(path_to_study_description) as json_file:
+                self.study_description = json.loads(json_file.read())
         self._observers = []
 
     def notify_observers(self):

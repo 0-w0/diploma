@@ -1,4 +1,4 @@
-class SeriesListModel:
+class StudyModel:
 
     def __init__(self):
         self._observers = []
