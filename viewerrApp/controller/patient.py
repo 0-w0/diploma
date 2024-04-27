@@ -8,4 +8,8 @@ class PatientController:
         self.view = PatientView(controller=self, model=self.model)
 
     def get_view(self) -> PatientView:
+        # self.set_data()
         return self.view
+
+    # def set_data(self):
+    #     self.model.study_description = Resource().get_all_data('study')

@@ -31,41 +31,19 @@ class ViewerrApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.load_all_kv_files(self.directory)
-        # This is the screen manager that will contain all the screens of your
-        # application.
         self.manager_screens = ScreenManager()
 
     def build(self):
-        """
-        Initializes the application; it will be called only once.
-        If this method returns a widget (tree), it will be used as the root
-        widget and added to the window.
-
-        :return:
-            None or a root :class:`~kivy.uix.widget.Widget` instance
-            if no self.root exists.
-        """
-
         self.theme_cls.primary_palette = "DeepOrange"
         self.generate_application_screens()
         return self.manager_screens
 
     def generate_application_screens(self):
-        """
-        Creating and adding screens to the screen manager.
-        You should not change this cycle unnecessarily. He is self-sufficient.
-
-        If you need to add any screen, open the `View.screens.py` module and
-        see how new screens are added according to the given application
-        architecture.
-        """
-
         for i, name_screen in enumerate(screens.keys()):
             model = screens[name_screen]["model"]()
             controller = screens[name_screen]["controller"](model)
             view = controller.get_view()
             view.manager_screens = self.manager_screens
-            view.study_id = name_screen
             self.manager_screens.add_widget(view)
 
 

@@ -3,12 +3,11 @@ from kivymd.uix.screen import MDScreen
 from utility.observer import Observer
 from view.study_list.components.list_item import StudyListItem
 
+
 class StudyListView(MDScreen, Observer):
 
     controller = ObjectProperty()
-
     model = ObjectProperty()
-
     manager_screens = ObjectProperty()
 
     def __init__(self, **kw):

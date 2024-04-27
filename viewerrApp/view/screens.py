@@ -10,8 +10,8 @@ from controller.patients_list import PatientsListController
 from model.study_list import StudyListModel
 from controller.study_list import StudyListController
 
-from model.search import SearchModel
-from controller.search import SearchController
+# from model.search import SearchModel
+# from controller.search import SearchController
 
 from model.patient import PatientModel
 from controller.patient import PatientController
@@ -37,10 +37,10 @@ screens = {
         "model": StudyListModel,
         "controller": StudyListController,
     },
-    "search": {
-        "model": SearchModel,
-        "controller": SearchController,
-    },
+    # "search": {
+    #     "model": SearchModel,
+    #     "controller": SearchController,
+    # },
     "patient": {
         "model": PatientModel,
         "controller": PatientController,

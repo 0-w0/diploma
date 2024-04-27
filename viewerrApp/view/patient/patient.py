@@ -6,13 +6,9 @@ from view.patient.components.list_item import StudyListItem
 
 
 class PatientView(MDScreen, Observer):
-
     controller = ObjectProperty()
-
     model = ObjectProperty()
-
     manager_screens = ObjectProperty()
-
     patient_id = StringProperty()
     sex = StringProperty()
     birthday = StringProperty()

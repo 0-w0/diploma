@@ -35,14 +35,6 @@
             pos_hint: {'center_x': .5}
 			text: "Просмотреть обследование"
 
-		Button:
-		    size_hint: (None, None)
-            size: 400, 60
-            pos_hint: {'center_x': .5}
-			text: "Искать обследование"
-			on_release:
-			    root.manager.transition.direction = "left"
-			    app.root.current = "search"
 
 		Button:
 		    size_hint: (None, None)
