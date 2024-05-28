@@ -42,7 +42,7 @@
                     size_hint: (1.0, None)
                     halign: "left"
                     valign: "top"
-                    text: "Patient: "+root.patient_id
+                    text: "Пациент: "+root.patient_name
                     font_size: 25
                     color: (125/255, 125/255, 125/255, 1)
 
@@ -52,7 +52,7 @@
                     halign: "left"
                     valign: "top"
                     height: 40
-                    text: "Sex: "+root.sex
+                    text: "Пол: "+root.sex
                     font_size: 25
                     color: (125/255, 125/255, 125/255, 1)
 
@@ -62,7 +62,7 @@
                     halign: "left"
                     valign: "top"
                     height: 40
-                    text: "Birthday: "+root.birthday
+                    text: "Дата рождения: "+root.birthday
                     font_size: 25
                     color: (125/255, 125/255, 125/255, 1)
 
@@ -71,17 +71,7 @@
                     size_hint: (1.0, None)
                     halign: "left"
                     valign: "top"
-                    text: "Study: "+root.study_id
-                    font_size: 25
-                    color: (125/255, 125/255, 125/255, 1)
-
-                Label:
-                    text_size: root.ids.container_patient.size
-                    size_hint: (1.0, None)
-                    halign: "left"
-                    valign: "top"
-                    height: 40
-                    text: "Study date: "+root.study_date
+                    text: "Обследование: "+root.study_id
                     font_size: 25
                     color: (125/255, 125/255, 125/255, 1)
 
@@ -91,7 +81,7 @@
                     halign: "left"
                     valign: "top"
                     height: 40
-                    text: "Study description: "+root.study_description
+                    text: "Дата проведения: "+root.study_date
                     font_size: 25
                     color: (125/255, 125/255, 125/255, 1)
 
@@ -100,7 +90,17 @@
                     size_hint: (1.0, None)
                     halign: "left"
                     valign: "top"
-                    text: "Series id: "+root.series_id
+                    height: 40
+                    text: "Описание: "+root.study_description
+                    font_size: 25
+                    color: (125/255, 125/255, 125/255, 1)
+
+                Label:
+                    text_size: root.ids.container_patient.size
+                    size_hint: (1.0, None)
+                    halign: "left"
+                    valign: "top"
+                    text: "Серия: "+root.series_id
                     font_size: 25
                     color: (125/255, 125/255, 125/255, 1)
 
@@ -118,11 +118,13 @@
                         text: "Просмотр"
                         size_hint: (None, None)
                         size: (150, 60)
+                        on_release: root.on_list_item_click()
 
                     Button:
                         text: "Анализировать все"
                         size_hint: (None, None)
                         size: (300, 60)
+                        on_release: root.analyze_all()
 
                 ScrollView:
                     MDList:

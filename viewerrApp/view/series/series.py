@@ -1,54 +1,67 @@
-from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
-from kivymd.uix.screen import MDScreen
-from utility.observer import Observer
+from view.view import View
 from view.series.components.list_item import InstanceListItem
+from cnn.prediction import Prediction
 
 
-class SeriesView(MDScreen, Observer):
-
-    controller = ObjectProperty()
-
-    model = ObjectProperty()
-
-    manager_screens = ObjectProperty()
+class SeriesView(View):
 
     series_id = StringProperty()
     patient_id = StringProperty()
+    patient_name = StringProperty()
     sex = StringProperty()
     birthday = StringProperty()
     study_id = StringProperty()
     study_date = StringProperty()
     study_description = StringProperty()
+    prediction_result = []
 
     def __init__(self, **kw):
         super().__init__(**kw)
         self.model.add_observer(self)
 
     def model_is_changed(self):
-        pass
+        self.controller.set_data()
 
     def on_enter(self):
         self.ids.instance_list_items.clear_widgets()
+        self.model_is_changed()
         self.generate_data()
         self.generate_and_added_items_to_list()
 
     def generate_data(self):
-        # get data from database via patient_id
-        self.patient_id = 'Patient'
-        self.sex = 'male'
-        self.birthday = '12/12/12'
-        self.study_id = '0'
-        self.study_date = '12/12/45'
-        self.study_description = 'neuro crane'
+        self.patient_name = str(self.model.patient_description[0]['full_name'])
+        self.patient_id = str(self.model.patient_description[0]['id'])
+        self.sex = str(self.model.patient_description[0]['sex'])
+        self.birthday = str(self.model.patient_description[0]['dob'])
+        self.study_date = str(self.model.study_description[0]['date'])
+        self.study_description = str(self.model.study_description[0]['description'])
+        self.study_id = str(self.model.study_description[0]['id'])
 
     def generate_and_added_items_to_list(self):
-        for i in range(15):
-            instance_list_item = InstanceListItem(instance_id=f'{i}')
-            self.ids.instance_list_items.add_widget(instance_list_item)
+        for instance in self.model.instance_description:
+            try:
+                instance_list_item = InstanceListItem(instance_id=str(instance['id']))
+                self.ids.instance_list_items.add_widget(instance_list_item)
+            except ValueError:
+                pass
 
-    def on_list_item_click(self, instance_id):
-        pass
-        # self.manager.transition.direction = "left"
-        # self.manager_screens.get_screen("series").series_id = series_id
-        # self.manager_screens.current = "series"
+    def on_list_item_click(self, instance_id=0):
+        self.manager.transition.direction = "left"
+        if self.manager_screens.get_screen("photo").series_id == self.series_id:
+            self.manager_screens.get_screen("photo").download_flag = False
+        else:
+            self.manager_screens.get_screen("photo").download_flag = True
+            self.manager_screens.get_screen("photo").series_id = self.series_id
+        self.manager_screens.get_screen("photo").instance_id = instance_id
+        self.manager_screens.current = "photo"
+
+    def analyze_all(self):
+        prediction = Prediction()
+        self.prediction_result = \
+            prediction.predict_url([instance['object_path'] for instance in self.model.instance_description])
+        print(self.prediction_result)
+        # copy = self.model.instance_description
+        # copy = [obj[1] | {'analyzed': obj[0]} for obj in zip(self.prediction_result, copy)]
+
+

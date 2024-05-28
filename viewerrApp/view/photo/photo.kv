@@ -1,0 +1,61 @@
+<PhotoView>:
+    name: "photo"
+    size: root.width, root.height
+
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Rectangle:
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 190, 40
+
+        GridLayout:
+            spacing: root.width-(150 + 190)*2
+            cols: 2
+            size_hint_y: None
+            height: self.minimum_height
+
+            Button:
+                text: "Назад"
+                size_hint: (None, None)
+                size: (150, 60)
+                on_release: root.to_previous_screen()
+
+            Label:
+                text: "ViEwErR"
+                font_size: 25
+                color: (1, 1, 1, 1)
+                size_hint: (None, None)
+                size: (150, 60)
+
+        BoxLayout:
+            padding: 40
+            orientation: "vertical"
+
+            AsyncImage:
+                id: image
+                source: 'data/img/filler.png'
+                allow_stretch: True
+                keep_ratio: True
+
+            GridLayout:
+                padding: (root.width - 800)/2, 20
+                spacing: 40
+                cols: 2
+                size_hint_y: None
+                height: self.minimum_height
+
+                Button:
+                    text: 'Назад'
+                    size_hint: (None, None)
+                    size: (150, 60)
+                    on_release: root.to_previous()
+
+                Button:
+                    text: 'Вперед'
+                    size_hint: (None, None)
+                    size: (150, 60)
+                    on_release: root.to_next()

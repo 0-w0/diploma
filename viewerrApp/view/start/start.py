@@ -1,48 +1,35 @@
+from view.view import View
+from view.start.popup.loader.loader import Loader
 from kivy.properties import ObjectProperty
-from kivymd.uix.screen import MDScreen
-from utility.observer import Observer
+from kivy.properties import NumericProperty
+from kivy.uix.popup import Popup
 
 
-class StartView(MDScreen, Observer):
-    """
-    A class that implements a visual representation of the model data
-    :class:`~Model.slider_menu_screen.SliderMenuScreenModel`.
-
-    Implements a screen with slides of pizza varieties.
-    """
-
-    controller = ObjectProperty()
-    """
-    Controller object -
-    :class:`~Controller.slider_menu_screen.SliderMenuScreenController`.
-
-    :attr:`controller` is an :class:`~kivy.properties.ObjectProperty`
-    and defaults to `None`.
-    """
-
-    model = ObjectProperty()
-    """
-    Model object - :class:`~Model.slider_menu_screen.SliderMenuScreenModel`.
-
-    :attr:`model` is an :class:`~kivy.properties.ObjectProperty`
-    and defaults to `None`.
-    """
-
-    manager_screens = ObjectProperty()
-    """
-    Screen manager object - :class:`~kivy.uix.screenmanager.ScreenManager`.
-
-    :attr:`manager_screens` is an :class:`~kivy.properties.ObjectProperty`
-    and defaults to `None`.
-    """
+class StartView(View):
 
     def __init__(self, **kw):
         super().__init__(**kw)
         self.model.add_observer(self)
 
-    def model_is_changed(self):
-        """
-        The method that will be called on the observer when the model changes.
-        """
-        pass
+    loadfile = ObjectProperty(None)
+    savefile = ObjectProperty(None)
+    text_input = ObjectProperty(None)
+
+    def dismiss_popup(self):
+        self._popup.dismiss()
+
+    def on_choose_dir(self):
+        content = Loader(load=self.load, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Load file", content=content,
+                            size_hint=(0.9, 0.9))
+        self._popup.open()
+
+    def load(self, path, filename):
+        self.manager.transition.direction = "left"
+        self.manager_screens.get_screen("photo").download_flag = True
+        self.manager_screens.get_screen("photo").series_id = None
+        self.manager_screens.get_screen("photo").instance_id = None
+        self.manager_screens.get_screen("photo").path = path
+        self.dismiss_popup()
+        self.manager_screens.current = "photo"
     

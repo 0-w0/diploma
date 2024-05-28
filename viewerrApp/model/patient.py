@@ -1,23 +1,15 @@
-import json
+from model.model import Model
 
 
-class PatientModel:
+class PatientModel(Model):
 
     def __init__(self):
         self._observers = []
         self.study_description = {}
-        path_to_study_description = "studies.json"
-        if path_to_study_description:
-            with open(path_to_study_description) as json_file:
-                self.study_description = json.loads(json_file.read())
-        self._observers = []
+        self.patient_description = []
 
-    def notify_observers(self):
-        for observer in self._observers:
-            observer.model_is_changed()
+    def set_data(self, data):
+        self.study_description = data
 
-    def add_observer(self, observer):
-        self._observers.append(observer)
-
-    def remove_observer(self, observer):
-        self._observers.remove(observer)
+    def set_single(self, data):
+        self.patient_description = data

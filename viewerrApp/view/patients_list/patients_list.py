@@ -15,9 +15,10 @@ class PatientsListView(View):
     def generate_and_added_items_to_list(self):
         for patient in self.model.patient_description:
             try:
-                patient_list_item = PatientsListItem(patient_name=patient['full_name'],
-                                                     birth_date=patient['dob'],
-                                                     sex=patient['sex'])
+                patient_list_item = PatientsListItem(patient_id=str(patient['id']),
+                                                     patient_name=str(patient['full_name']),
+                                                     birth_date=str(patient['dob']),
+                                                     sex=str(patient['sex']))
                 self.ids.patients_list_items.add_widget(patient_list_item)
             except ValueError:
                 pass

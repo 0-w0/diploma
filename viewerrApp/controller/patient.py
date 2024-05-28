@@ -1,15 +1,19 @@
 from view.patient.patient import PatientView
+from controller.controller import Controller
+from res.patient import PatientResource
 
 
-class PatientController:
+class PatientController(Controller):
 
     def __init__(self, model):
-        self.model = model  # Model.slider_menu_screen.SliderMenuScreenModel
+        self.name = 'patient'
+        self.subname = 'study'
+        self.model = model
         self.view = PatientView(controller=self, model=self.model)
 
-    def get_view(self) -> PatientView:
-        # self.set_data()
-        return self.view
-
-    # def set_data(self):
-    #     self.model.study_description = Resource().get_all_data('study')
+    def set_data(self):
+        if self.view.patient_id:
+            resp = PatientResource().get_row_by_id(self.name, self.view.patient_id)
+            self.model.set_single(resp.data)
+            resp = PatientResource().get_list_data(self.subname, self.view.patient_id)
+            self.model.set_data(resp.data)
