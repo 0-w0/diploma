@@ -26,12 +26,17 @@ class StudyView(View):
         self.generate_and_added_items_to_list()
 
     def generate_data(self):
-        self.patient_name = str(self.model.patient_description[0]['full_name'])
-        self.patient_id = str(self.model.patient_description[0]['id'])
-        self.sex = str(self.model.patient_description[0]['sex'])
-        self.birthday = str(self.model.patient_description[0]['dob'])
-        self.study_date = str(self.model.study_description[0]['date'])
-        self.study_description = str(self.model.study_description[0]['description'])
+        try:
+            self.patient_name = str(self.model.patient_description[0]['full_name'])
+            self.patient_id = str(self.model.patient_description[0]['id'])
+            self.sex = str(self.model.patient_description[0]['sex'])
+            self.birthday = str(self.model.patient_description[0]['dob'])
+            self.study_date = str(self.model.study_description[0]['date'])
+            self.study_description = str(self.model.study_description[0]['description'])
+        except ValueError:
+            pass
+        except IndexError:
+            pass
 
     def generate_and_added_items_to_list(self):
         for series in self.model.series_description:
@@ -39,6 +44,8 @@ class StudyView(View):
                 series_list_item = SeriesListItem(series_id=str(series['id']))
                 self.ids.series_list_items.add_widget(series_list_item)
             except ValueError:
+                pass
+            except IndexError:
                 pass
 
     def on_list_item_click(self, series_id):

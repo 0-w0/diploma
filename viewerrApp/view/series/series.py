@@ -30,13 +30,18 @@ class SeriesView(View):
         self.generate_and_added_items_to_list()
 
     def generate_data(self):
-        self.patient_name = str(self.model.patient_description[0]['full_name'])
-        self.patient_id = str(self.model.patient_description[0]['id'])
-        self.sex = str(self.model.patient_description[0]['sex'])
-        self.birthday = str(self.model.patient_description[0]['dob'])
-        self.study_date = str(self.model.study_description[0]['date'])
-        self.study_description = str(self.model.study_description[0]['description'])
-        self.study_id = str(self.model.study_description[0]['id'])
+        try:
+            self.patient_name = str(self.model.patient_description[0]['full_name'])
+            self.patient_id = str(self.model.patient_description[0]['id'])
+            self.sex = str(self.model.patient_description[0]['sex'])
+            self.birthday = str(self.model.patient_description[0]['dob'])
+            self.study_date = str(self.model.study_description[0]['date'])
+            self.study_description = str(self.model.study_description[0]['description'])
+            self.study_id = str(self.model.study_description[0]['id'])
+        except ValueError:
+            pass
+        except IndexError:
+            pass
 
     def generate_and_added_items_to_list(self):
         for instance in self.model.instance_description:
@@ -44,6 +49,8 @@ class SeriesView(View):
                 instance_list_item = InstanceListItem(instance_id=str(instance['id']))
                 self.ids.instance_list_items.add_widget(instance_list_item)
             except ValueError:
+                pass
+            except IndexError:
                 pass
 
     def on_list_item_click(self, instance_id=0):

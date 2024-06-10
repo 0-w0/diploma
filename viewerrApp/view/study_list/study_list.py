@@ -19,7 +19,8 @@ class StudyListView(View):
                 self.ids.study_list_items.add_widget(study_list_item)
             except ValueError:
                 pass
-
+            except IndexError:
+                pass
 
     def on_list_item_click(self, study_id):
         self.manager.transition.direction = "left"

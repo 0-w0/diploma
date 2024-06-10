@@ -1,15 +1,4 @@
-"""
-The entry point to the application.
-
-The application uses the MVC template. Adhering to the principles of clean
-architecture means ensuring that your application is easy to test, maintain,
-and modernize.
-
-You can read more about this template at the links below:
-
-https://github.com/HeaTTheatR/LoginAppMVC
-https://en.wikipedia.org/wiki/Model–view–controller
-"""
+import httpx
 from kivy.config import Config
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 from kivy.uix.screenmanager import ScreenManager
@@ -47,5 +36,8 @@ class ViewerrApp(MDApp):
             self.manager_screens.add_widget(view)
 
 
-ViewerrApp().run()
+try:
+    ViewerrApp().run()
+except httpx.ConnectError:
+    print("bad getaway connection")
 

@@ -22,6 +22,8 @@ class PatientsListView(View):
                 self.ids.patients_list_items.add_widget(patient_list_item)
             except ValueError:
                 pass
+            except IndexError:
+                pass
 
     def on_list_item_click(self, patient_id):
         self.manager.transition.direction = "left"
